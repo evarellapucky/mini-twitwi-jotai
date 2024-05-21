@@ -31,6 +31,32 @@ function Profile() {
     fetchProfile();
   }, [id, token])
 
+
+
+  const [posts, setPosts] = useState([])
+  console.log(posts)
+  
+useEffect(() =>  {
+  const displayPosts = async () => {
+    try {
+      const response = await axios.get('http://localhost:1337/api/posts?populate=author', {
+        headers : {
+          'Authorization' : `Bearer ${token}`
+        }
+      })
+      setPosts(response.data.data);
+      console.log('fdsfdshbgjfgdsqkfjhdsqjk')
+      console.log(response)
+    } catch (error) {
+      console.error(error)
+      }
+      }
+      displayPosts()
+    }, [token])
+
+    const userPosts = posts.filter(post => post.attributes.author.data.id === user.id);
+    console.log(userPosts)
+
   
 return (
   
@@ -43,6 +69,17 @@ return (
     <p>{user.description}</p>
 
 { user.id === actualUser.id ? <UpdateProfile /> : ""}
+<div className="all-posts">
+<h1>ALL POSTS OF THE USER</h1>
+{userPosts.map((post) => (
+          <div key={post.id} className="post">
+            <div className="post-time">{post.attributes.createdAt}</div>
+            <div className="contentPost">{post.attributes.text}</div>
+            <button className="likePost">LIKE ME</button>
+          </div>
+          
+        ))}
+</div>
 </div>
   }
   
