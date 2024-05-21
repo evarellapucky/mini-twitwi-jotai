@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { userAtom, tokenAtom } from "../atoms/atoms"
 import { useAtom } from "jotai"
 
@@ -7,10 +7,12 @@ function Navbar() {
 
   const [user, setUser] = useAtom(userAtom)
   const [token, setToken] = useAtom(tokenAtom)
+  const redirect = useNavigate();
 
   const logOut = () => {
     setUser(null);
     setToken(null);
+    redirect("/");
   }
 
   return (
