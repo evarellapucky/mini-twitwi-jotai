@@ -55,9 +55,9 @@ useEffect(() =>  {
                     <div className="relative mb-2 flex items-center gap-x-4">
                       <img src="https://www.journee-mondiale.com/medias/grande/images/journee/chat-noir.jpg" alt="" className="h-10 w-10 rounded-full bg-gray-50" />
                       <div className="text-sm leading-6">
-                        <p className="font-semibold text-gray-900">
-                          <span className="absolute inset-0"></span>
-                          <Link to={`/users/${post.attributes.author.data.id}`} className="authorPost">{post.attributes.author.data.attributes.username}</Link>
+                        <p className="font-bold text-gray-900 hover:text-blue-500">
+                          <span className="static inset-0"></span>
+                          <Link to={`/users/${post.attributes.author.data.id}`} className="authorPost ">{post.attributes.author.data.attributes.username}</Link>
                         </p>
                       </div>
                     </div>
