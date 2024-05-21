@@ -29,7 +29,7 @@ function Navbar() {
           <button onClick={logOut} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">LogOut</button>
         }
       </div>
-      <p className="text-gray-800 dark:text-gray-200 py-2 px-3 rounded-lg border-2 border-blue-300 mt-1 font-bold">{user ? `Bonjour ${user.username}`  : ""}</p>
+    <p className={`text-gray-800 dark:text-gray-200 py-2 px-3 rounded-lg border-2 border-blue-300 mt-1 font-bold ${user ? '' : 'hidden'}`}>Bonjour {user ? user.username : ""}</p>
     </div>
   </nav>
         {/* {user ?  <button onClick={logOut}>LogOut</button> : <Link to="/login">Se connecter</Link>}
