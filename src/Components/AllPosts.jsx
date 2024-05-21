@@ -19,8 +19,11 @@ useEffect(() =>  {
         headers : {
           'Authorization' : `Bearer ${token}`
         }
-      })
-      setPosts(response.data.data);
+      });
+      const sortedPosts = response.data.data.sort((a, b) => {
+        return new Date(b.attributes.createdAt) - new Date(a.attributes.createdAt);
+      });
+      setPosts(sortedPosts);
       console.log(response)
     } catch (error) {
       console.error(error)
@@ -29,7 +32,10 @@ useEffect(() =>  {
       displayPosts()
     }, [token, atomPost])
 
-
+    const dateFormat = (d) => {
+      const date = new Date(d);
+      return date.toLocaleString();
+    };
 
     return (
       <>
@@ -39,7 +45,7 @@ useEffect(() =>  {
         {posts.map((post) => (
           <div key={post.id} className="post">
             <h3><Link to={`/users/${post.attributes.author.data.id}`} className="authorPost">{post.attributes.author.data.attributes.username}</Link></h3>
-            <div className="post-time">{post.attributes.createdAt}</div>
+            <div className="post-time">{dateFormat(post.attributes.createdAt)}</div>
             <div className="contentPost">{post.attributes.text}</div>
             <button className="likePost">LIKE ME</button>
           </div>

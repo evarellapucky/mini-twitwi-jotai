@@ -2,12 +2,14 @@ import { userAtom, tokenAtom, } from "../../atoms/atoms";
 import axios from "axios";
 import { useAtom } from "jotai";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [user, setUser] = useAtom(userAtom);
   const [token, setToken] = useAtom(tokenAtom);
   const [identifier, setIdentifier] = useState('');
   const [password, setPassword] = useState('');
+  const redirect = useNavigate()
 
 
   const handleLogin = async (e) => { 
@@ -22,6 +24,7 @@ function Login() {
       console.log(response.data.user);
       setUser(response.data.user);
       setToken(response.data.jwt);
+      redirect("/")
     } catch (error) {
       console.error(error);
     }
