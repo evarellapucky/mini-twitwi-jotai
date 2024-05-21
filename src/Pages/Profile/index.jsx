@@ -1,53 +1,52 @@
 import { userAtom, tokenAtom } from "../../atoms/atoms";
 import { useAtom } from "jotai";
+import { useParams } from "react-router-dom";
 import axios from "axios";
-import { useState } from "react";
-import { Navigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import UpdateProfile from "../../Components/UpdateProfile";
+
+
 
 function Profile() {
+  const { id } = useParams();
+  console.log(id)
+  const [actualUser] = useAtom(userAtom);
+  const [user, setUser] = useState('');
+  const [token] = useAtom(tokenAtom)
 
-  const [user, setUser] = useAtom(userAtom);
-  console.log(user) 
-  const [token] = useAtom(tokenAtom);
-  const [username, setUsername] = useState(user ? user.username : '');
-  const [description, setDescription] = useState(user === true && user.description !== null ? user.description : 'No description');
-  const [email, setEmail] = useState(user ? user.email : '' );
-  const [password, setPassword] = useState(user ? user.password : '');
-
-  const handleUpdateProfile = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.put('http://localhost:1337/api/users-permissions/users/me', {
-        username,
-        description,
-        email
-      }, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
-      setUser(response.data)
-    } catch (error) {
-      console.error(error)
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const response = await axios.get(`http://localhost:1337/api/users/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        console.log(response.data)
+        setUser(response.data)
+      } catch (error) {
+        console.error(error)
+      }
     }
-  }
+    fetchProfile();
+  }, [id, token])
 
+  
 return (
+  
   <>
-    {user ? (
-      <div>
-        <h1>Profil</h1>
-        <form onSubmit={handleUpdateProfile}>
-          <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
-          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-          <textarea value={description} onChange={(e) => setDescription(e.target.value)} />
-          <button type="submit">Enregistrer</button>
-        </form>
-      </div>
-    ) : (
-      <Navigate to="/login" />
-    )}
+  {!user ? <p>LOADING..</p> : 
+<div>
+    <p>Coucou Profil</p>
+    <p>{user.username}</p>
+    <p>{user.email}</p>
+    <p>{user.description}</p>
+
+{ user.id === actualUser.id ? <UpdateProfile /> : ""}
+</div>
+  }
+  
   </>
-);
+  );
 }
 export default Profile;

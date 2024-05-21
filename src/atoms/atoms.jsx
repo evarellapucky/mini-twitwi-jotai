@@ -1,5 +1,6 @@
 import { atom } from 'jotai';
+import { atomWithStorage } from 'jotai/utils';
 
-export const userAtom = atom(null);
-export const tokenAtom = atom(null);
+export const userAtom = atomWithStorage('user-key', null);
+export const tokenAtom = atomWithStorage('token-key', null);
 export const postsAtom = atom([]);

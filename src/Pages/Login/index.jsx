@@ -18,6 +18,8 @@ function Login() {
         identifier,
         password
       })
+      console.log("LOGIN LOG")
+      console.log(response.data.user);
       setUser(response.data.user);
       setToken(response.data.jwt);
     } catch (error) {
