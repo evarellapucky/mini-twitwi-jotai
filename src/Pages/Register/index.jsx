@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useAtom } from "jotai";
 import { userAtom, tokenAtom } from "../../atoms/atoms";
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 
 function Register() {
@@ -10,6 +11,7 @@ function Register() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const redirect = useNavigate();
   
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -22,6 +24,7 @@ function Register() {
         console.log("Register succeed")
        setUser(response.data.user)
        setToken(response.data.jwt)
+       redirect("/")
     } catch (error){
       console.error(error);
     }
