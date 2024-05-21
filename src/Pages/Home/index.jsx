@@ -11,9 +11,7 @@ function Home() {
   return (
     <div>
     <h1>Bonjour {user ? user.username : ""}</h1>
-    
-    <Postform />
-
+    {user? <Postform /> : "vous devez être connecté pour voir les posts"}
     <AllPosts />
     </div>
   )

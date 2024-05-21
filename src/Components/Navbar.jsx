@@ -15,11 +15,11 @@ function Navbar() {
 
   return (
     <>
-        {user ?  <button onClick={logOut}>LogOut</button> : <p>pas de button a la con</p>}
+        {user ?  <button onClick={logOut}>LogOut</button> : <Link to="/login">Se connecter</Link>}
         <Link to="/">Home</Link>
         { user ?  <Link to={`/users/${user.id}`}>Profil</Link> : ""}
         <Link to="/register">S&apos;inscrire</Link>
-        <Link to="/login">Se connecter</Link>
+        
 
     </>
   )
