@@ -51,7 +51,7 @@ useEffect(() =>  {
               </div>
               <div className="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
                 {posts.map((post) => (
-                  <article className="flex max-w-xl flex-col items-start p-3 justify-between border-solid border border-grey rounded-md" key={post.id}>
+                  <article className="flex max-w-xl flex-col items-start p-3 justify-between bg-slate-200 border-solid border border-grey rounded-md" key={post.id}>
                     <div className="relative mb-2 flex items-center gap-x-4">
                       <img src="https://www.journee-mondiale.com/medias/grande/images/journee/chat-noir.jpg" alt="" className="h-10 w-10 rounded-full bg-gray-50" />
                       <div className="text-sm leading-6">
